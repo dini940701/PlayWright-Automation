@@ -1,0 +1,21 @@
+import {test,expect} from "../Fixtures/baseFixtures.js"
+import { LoginPage } from "../Pages/LoginPage.js";
+
+
+test(`Verify login to an application with valid credentials @sanity`,
+    {annotation:[
+        {type:'epic',description:'Login'},
+        {type:'story',description:'Login to an application'}
+    ]
+    }
+    ,async({homePage})=>{
+    await expect(homePage.page).toHaveTitle(`My Account`);
+});
+
+test(`Verify the error message for invalid login credentials`,async({page,baseURL})=>{
+    let loginPage=new LoginPage(page);
+    await loginPage.goto(baseURL);
+    await loginPage.doLogin(`diddnesh123@mail.com`,`1@Dinecdsh`);
+    let errorMessage=await loginPage.invalidLogin();
+    expect(errorMessage).toContain(`Warning: No match for E-Mail Address and/or Password.`);
+})
