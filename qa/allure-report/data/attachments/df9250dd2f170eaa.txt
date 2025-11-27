@@ -1,0 +1,13 @@
+Value filled into an locator('#input-email') is dinesh123@mail.com
+Value filled into an locator('#input-password') is 1@Dinesh
+Value filled into an locator('input[placeholder=\'Search\']') is macbook
+Product header is MacBook Pro
+total number of images for the product locator('h1'):4
+header MacBook Pro
+imagecount 4
+Brand Apple
+Product Code Product 18
+Reward Points 800
+Availability Out Of Stock
+productprice $2,000.00
+extaxprice $2,000.00
