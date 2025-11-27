@@ -18,7 +18,7 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  //retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 3 : 3,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -36,7 +36,7 @@ export default defineConfig({
       embedAttachments: true,
       outputFolder: 'playwright-html-report',
       minifyAssets: true,
-      startServer: true,
+      startServer: false,
     }]
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -45,10 +45,10 @@ export default defineConfig({
     baseURL: `https://naveenautomationlabs.com/opencart/index.php`,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    headless: !!process.env.CI, //false locally but true for CI
     trace: 'on-first-retry',
     screenshot:'on',
     video:'on',
-    headless:false    
   },
   //This is used to save the username and password
   metadata:{
