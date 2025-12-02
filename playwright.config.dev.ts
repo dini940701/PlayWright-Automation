@@ -52,8 +52,8 @@ export default defineConfig({
   },
   //This is used to save the username and password
   metadata:{
-    appUsername: 'test123@test.com',
-    appPassword: 'test'
+    appUsername: 'dinesh1@mail.com',
+    appPassword: '1@Dinesh'
   },
 
   /* Configure projects for major browsers */
