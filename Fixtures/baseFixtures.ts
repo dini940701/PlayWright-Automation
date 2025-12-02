@@ -9,7 +9,7 @@ export const test=base.extend<myFixture>({
     homePage:async ({page,baseURL},use,testInfo)=>{
         const loginPage=new LoginPage(page);
         await loginPage.goto(baseURL);
-        const userName=await testInfo.project.metadata.appUserName;
+        const userName=await testInfo.project.metadata.appUsername;
         const password=await testInfo.project.metadata.appPassword;
         const homePage=await loginPage.doLogin(userName,password);
         expect(await homePage.isUserLoggedIn()).toBeTruthy();
