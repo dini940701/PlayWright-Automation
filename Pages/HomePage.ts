@@ -1,6 +1,6 @@
-import { Locator, Page } from "@playwright/test";
-import { ElementUtil } from "../ElementUtils/ElementUtil.js";
-import { SearchResultsPage } from "./SRP.js";
+import { Locator, Page } from '@playwright/test';
+import { ElementUtil } from '../ElementUtils/ElementUtil.js';
+import { SearchResultsPage } from './SRP.js';
 
 export class HomePage {
     readonly page:Page;
@@ -13,7 +13,7 @@ export class HomePage {
         this.page=page;
         this.eleUtil=new ElementUtil(page);
         this.edtAccountLink=page.getByRole('link', { name: 'Edit Account' });
-        this.searchBar=page.locator(`input[placeholder='Search']`);
+        this.searchBar=page.locator('input[placeholder=\'Search\']');
         this.searchIcon=page.locator('.btn.btn-default.btn-lg');
     }
 

@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page } from '@playwright/test';
 
 type flexibleLocator=string|Locator;
 export class ElementUtil {
@@ -7,7 +7,7 @@ export class ElementUtil {
 
     constructor(page:Page,timeout:number=30000) {
         this.page=page,
-        this.defaultTimeout=timeout
+        this.defaultTimeout=timeout;
     }
 /**
  * To get locator using locator and optional index
@@ -18,10 +18,10 @@ export class ElementUtil {
     private getLocator(locator:flexibleLocator,index?:number):Locator{
         if(typeof locator==='string'){
             if(index){
-                return this.page.locator(locator).nth(index)
+                return this.page.locator(locator).nth(index);
             }
             else{
-                return this.page.locator(locator).first()
+                return this.page.locator(locator).first();
             }
         }
         else{
@@ -39,7 +39,7 @@ export class ElementUtil {
  * @param locator 
  * @param value 
  */
-    async doFill(locator:flexibleLocator,value:string,index?:number):Promise<void>{
+    async doFill(locator:flexibleLocator,value:string):Promise<void>{
         await this.getLocator(locator).fill(value);
         console.log(`Value filled into an ${locator} is ${value}`);
     }
@@ -49,7 +49,7 @@ export class ElementUtil {
         await this.getLocator(locator).click({
             force:options?.force,
             timeout:options?.timeout || this.defaultTimeout
-        })
+        });
     }
 
 
@@ -58,7 +58,7 @@ export class ElementUtil {
             delay:delay,
             timeout:this.defaultTimeout
         });
-        console.log(`Fill value into an element in sequential manner`);
+        console.log('Fill value into an element in sequential manner');
     }
 
 
@@ -160,7 +160,7 @@ async getInnerText(locator:flexibleLocator):Promise<string>{
  * @param locator 
  * @param state 
  */
-    async waitForLoadState(locator:flexibleLocator,state: "load" | "domcontentloaded" | "networkidle"='load'){
+    async waitForLoadState(locator:flexibleLocator,state: 'load' | 'domcontentloaded' | 'networkidle'='load'){
         await this.page.waitForLoadState(state);
     }
 }

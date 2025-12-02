@@ -1,7 +1,6 @@
-import { test as base,expect } from "@playwright/test";
-import { HomePage } from "../Pages/HomePage.js";
-import { LoginPage } from "../Pages/LoginPage.js";
-import { log } from "console";
+import { test as base,expect } from '@playwright/test';
+import { HomePage } from '../Pages/HomePage.js';
+import { LoginPage } from '../Pages/LoginPage.js';
 
 type myFixture={
     homePage:HomePage;

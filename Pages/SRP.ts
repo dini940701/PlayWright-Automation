@@ -1,6 +1,6 @@
-import { Locator, Page } from "@playwright/test";
-import { ElementUtil } from "../ElementUtils/ElementUtil.js";
-import { ProductDetailsPage } from "./PDP.js";
+import { Locator, Page } from '@playwright/test';
+import { ElementUtil } from '../ElementUtils/ElementUtil.js';
+import { ProductDetailsPage } from './PDP.js';
 
 
 export class SearchResultsPage {

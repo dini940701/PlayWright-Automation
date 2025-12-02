@@ -1,5 +1,5 @@
-import { Locator, Page } from "@playwright/test";
-import { ElementUtil } from "../ElementUtils/ElementUtil";
+import { Locator, Page } from '@playwright/test';
+import { ElementUtil } from '../ElementUtils/ElementUtil';
 
 export class ProductDetailsPage {
     private readonly page:Page;
@@ -8,15 +8,15 @@ export class ProductDetailsPage {
     private readonly imageCount:Locator;
     private readonly productMetaData:Locator;
     private readonly productPricingData:Locator;
-    private readonly productMap=new Map<string,string|number|null>
+    private readonly productMap=new Map<string,string|number|null>;
 
     constructor(page:Page) {
         this.page=page;
         this.eleUtil=new ElementUtil(page);
-        this.header=page.locator(`h1`);
-        this.imageCount=page.locator(`div#content img`);
-        this.productMetaData=page.locator(`(//div[@id='content']//ul[@class='list-unstyled'])[1]/li`);
-        this.productPricingData=page.locator(`(//div[@id='content']//ul[@class='list-unstyled'])[2]/li`);
+        this.header=page.locator('h1');
+        this.imageCount=page.locator('div#content img');
+        this.productMetaData=page.locator('(//div[@id=\'content\']//ul[@class=\'list-unstyled\'])[1]/li');
+        this.productPricingData=page.locator('(//div[@id=\'content\']//ul[@class=\'list-unstyled\'])[2]/li');
 
     }
 
@@ -43,7 +43,7 @@ export class ProductDetailsPage {
         const productPricing=await this.productPricingData.allInnerTexts();
         const pricingData=productPricing[0].trim();
         const exTaxPrice=productPricing[1].split(':')[1].trim();
-        this.productMap.set(`productprice`,pricingData);
-        this.productMap.set(`extaxprice`,exTaxPrice);
+        this.productMap.set('productprice',pricingData);
+        this.productMap.set('extaxprice',exTaxPrice);
     }
 }
