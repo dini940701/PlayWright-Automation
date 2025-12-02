@@ -15,7 +15,7 @@ test('Verify login to an application with valid credentials @sanity',
 test('Verify the error message for invalid login credentials',async({page,baseURL})=>{
     const loginPage=new LoginPage(page);
     await loginPage.goto(baseURL);
-    await loginPage.doLogin('diddnesh23@mail.com','1@Dnecdsh');
+    await loginPage.doLogin('diddnesdh23@mail.com','1@Dnsdecdsh');
     const errorMessage=await loginPage.invalidLogin();
     expect(errorMessage).toContain('Warning: No match for E-Mail Address and/or Password.');
 });
