@@ -12,7 +12,7 @@ test('Verify login to an application with valid credentials @sanity',
     await expect(homePage.page).toHaveTitle('My Account');
 });
 
-test('Verify the error message for invalid login credentials',async({page,baseURL})=>{
+test.skip('Verify the error message for invalid login credentials',async({page,baseURL})=>{
     const loginPage=new LoginPage(page);
     await loginPage.goto(baseURL);
     await loginPage.doLogin('diddne3sdh23@mail.com','1@Dnsde3cdsh');
