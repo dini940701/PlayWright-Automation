@@ -29,14 +29,14 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS-20'
+        nodejs 'NodeJS-25.2.1'
     }
 
     environment {
-        NODE_VERSION = '20'
+        NODE_VERSION = '25.2.1'
         CI = 'true'
         PLAYWRIGHT_BROWSERS_PATH = "${WORKSPACE}/.cache/ms-playwright"
-        SLACK_WEBHOOK_URL = credentials('slack-webhook-token')
+        SLACK_WEBHOOK_URL = credentials('SlackWebhook')
         // Email recipients - update these with your actual email addresses
         EMAIL_RECIPIENTS = 'dnarasimha1994@gmail.com'
     }
@@ -62,13 +62,13 @@ pipeline {
                 echo '============================================'
                 echo '📁 Creating ESLint report directory...'
                 echo '============================================'
-                bat 'mkdir -p eslint-report'
+                bat 'mkdir eslint-report'
 
                 echo '============================================'
                 echo '🔍 Running ESLint...'
                 echo '============================================'
                 script {
-                    def eslintStatus = sh(script: 'npm run lint', returnStatus: true)
+                    def eslintStatus = bat(script: 'npm run lint', returnStatus: true)
                     env.ESLINT_STATUS = eslintStatus == 0 ? 'success' : 'failure'
                 }
 
@@ -112,13 +112,13 @@ pipeline {
                 echo '============================================'
                 echo '🧹 Cleaning previous results...'
                 echo '============================================'
-                bat 'rm -rf allure-results playwright-report playwright-html-report test-results'
+                bat 'rmdir /s /q allure-results playwright-report playwright-html-report test-results'
 
                 echo '============================================'
                 echo '🧪 Running DEV tests...'
                 echo '============================================'
                 script {
-                    env.DEV_TEST_STATUS = sh(
+                    env.DEV_TEST_STATUS = bat(
                         script: 'npx playwright test --config=playwright.config.dev.ts',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
@@ -128,7 +128,7 @@ pipeline {
                 echo '🏷️ Adding Allure environment info...'
                 echo '============================================'
                 bat '''
-                    mkdir -p allure-results
+                    mkdir allure-results
                     echo "Environment=DEV" > allure-results/environment.properties
                     echo "Browser=Google Chrome" >> allure-results/environment.properties
                     echo "Config=playwright.config.dev.ts" >> allure-results/environment.properties
@@ -138,8 +138,8 @@ pipeline {
                 always {
                     // Copy and generate DEV Allure Report
                     bat '''
-                        mkdir -p allure-results-dev
-                        cp -r allure-results/* allure-results-dev/ 2>/dev/null || true
+                        mkdir allure-results-dev
+                        xcopy -r allure-results/* allure-results-dev/ 2>/dev/null || true
                         npx allure generate allure-results-dev --clean -o allure-report-dev || true
                     '''
 
@@ -188,13 +188,13 @@ pipeline {
                 echo '============================================'
                 echo '🧹 Cleaning previous results...'
                 echo '============================================'
-                bat 'rm -rf allure-results playwright-report playwright-html-report test-results'
+                bat 'rmdir /s /q allure-results playwright-report playwright-html-report test-results'
 
                 echo '============================================'
                 echo '🧪 Running QA tests...'
                 echo '============================================'
                 script {
-                    env.QA_TEST_STATUS = sh(
+                    env.QA_TEST_STATUS = bat(
                         script: 'npx playwright test --config=playwright.config.qa.ts',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
@@ -204,7 +204,7 @@ pipeline {
                 echo '🏷️ Adding Allure environment info...'
                 echo '============================================'
                 bat '''
-                    mkdir -p allure-results
+                    mkdir allure-results
                     echo "Environment=QA" > allure-results/environment.properties
                     echo "Browser=Google Chrome" >> allure-results/environment.properties
                     echo "Config=playwright.config.qa.ts" >> allure-results/environment.properties
@@ -214,8 +214,8 @@ pipeline {
                 always {
                     // Copy and generate QA Allure Report
                     bat '''
-                        mkdir -p allure-results-qa
-                        cp -r allure-results/* allure-results-qa/ 2>/dev/null || true
+                        mkdir allure-results-qa
+                        xcopy -r allure-results/* allure-results-qa/ 2>/dev/null || true
                         npx allure generate allure-results-qa --clean -o allure-report-qa || true
                     '''
 
@@ -264,13 +264,13 @@ pipeline {
                 echo '============================================'
                 echo '🧹 Cleaning previous results...'
                 echo '============================================'
-                bat 'rm -rf allure-results playwright-report playwright-html-report test-results'
+                bat 'rmdir /s /q allure-results playwright-report playwright-html-report test-results'
 
                 echo '============================================'
                 echo '🧪 Running STAGE tests...'
                 echo '============================================'
                 script {
-                    env.STAGE_TEST_STATUS = sh(
+                    env.STAGE_TEST_STATUS = bat(
                         script: 'npx playwright test --config=playwright.config.stage.ts',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
@@ -280,7 +280,7 @@ pipeline {
                 echo '🏷️ Adding Allure environment info...'
                 echo '============================================'
                 bat '''
-                    mkdir -p allure-results
+                    mkdir allure-results
                     echo "Environment=STAGE" > allure-results/environment.properties
                     echo "Browser=Google Chrome" >> allure-results/environment.properties
                     echo "Config=playwright.config.stage.ts" >> allure-results/environment.properties
@@ -290,8 +290,8 @@ pipeline {
                 always {
                     // Copy and generate STAGE Allure Report
                     bat '''
-                        mkdir -p allure-results-stage
-                        cp -r allure-results/* allure-results-stage/ 2>/dev/null || true
+                        mkdir allure-results-stage
+                        xcopy -r allure-results/* allure-results-stage/ 2>/dev/null || true
                         npx allure generate allure-results-stage --clean -o allure-report-stage || true
                     '''
 
@@ -340,13 +340,13 @@ pipeline {
                 echo '============================================'
                 echo '🧹 Cleaning previous results...'
                 echo '============================================'
-                bat 'rm -rf allure-results playwright-report playwright-html-report test-results'
+                bat 'rmdir /s /q allure-results playwright-report playwright-html-report test-results'
 
                 echo '============================================'
                 echo '🧪 Running PROD tests...'
                 echo '============================================'
                 script {
-                    env.PROD_TEST_STATUS = sh(
+                    env.PROD_TEST_STATUS = bat(
                         script: 'npx playwright test --config=playwright.config.prod.ts',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
@@ -356,7 +356,7 @@ pipeline {
                 echo '🏷️ Adding Allure environment info...'
                 echo '============================================'
                 bat '''
-                    mkdir -p allure-results
+                    mkdir allure-results
                     echo "Environment=PROD" > allure-results/environment.properties
                     echo "Browser=Google Chrome" >> allure-results/environment.properties
                     echo "Config=playwright.config.prod.ts" >> allure-results/environment.properties
@@ -366,8 +366,8 @@ pipeline {
                 always {
                     // Copy and generate PROD Allure Report
                     bat '''
-                        mkdir -p allure-results-prod
-                        cp -r allure-results/* allure-results-prod/ 2>/dev/null || true
+                        mkdir allure-results-prod
+                        xcopy -r allure-results/* allure-results-prod/ 2>/dev/null || true
                         npx allure generate allure-results-prod --clean -o allure-report-prod || true
                     '''
 
@@ -419,13 +419,13 @@ pipeline {
 
                 bat '''
                     # Create combined results directory
-                    mkdir -p allure-results-combined
+                    mkdir allure-results-combined
                     
                     # Copy all environment results
-                    cp -r allure-results-dev/* allure-results-combined/ 2>/dev/null || true
-                    cp -r allure-results-qa/* allure-results-combined/ 2>/dev/null || true
-                    cp -r allure-results-stage/* allure-results-combined/ 2>/dev/null || true
-                    cp -r allure-results-prod/* allure-results-combined/ 2>/dev/null || true
+                    xcopy -r allure-results-dev/* allure-results-combined/ 2>/dev/null || true
+                    xcopy -r allure-results-qa/* allure-results-combined/ 2>/dev/null || true
+                    xcopy -r allure-results-stage/* allure-results-combined/ 2>/dev/null || true
+                    xcopy -r allure-results-prod/* allure-results-combined/ 2>/dev/null || true
                     
                     # Create combined environment.properties
                     echo "Environment=ALL (DEV, QA, STAGE, PROD)" > allure-results-combined/environment.properties
