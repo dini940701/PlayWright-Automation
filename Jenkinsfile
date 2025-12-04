@@ -62,7 +62,7 @@ pipeline {
                 echo '============================================'
                 echo '📁 Creating ESLint report directory...'
                 echo '============================================'
-                bat 'mkdir eslint-report'
+                bat 'powershell -Command "if (!(Test-Path eslint-report)) { New-Item -ItemType Directory -Path eslint-report }"'
 
                 echo '============================================'
                 echo '🔍 Running ESLint...'
