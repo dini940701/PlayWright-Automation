@@ -1,5 +1,5 @@
 import {test,expect} from '../Fixtures/baseFixtures.js';
-import { LoginPage } from '../Pages/LoginPage.js';
+//import { LoginPage } from '../Pages/LoginPage.js';
 
 
 test('Verify login to an application with valid credentials @sanity',

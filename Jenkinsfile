@@ -337,7 +337,7 @@ pipeline {
                 echo '🧪 Running PROD tests...'
                 echo '============================================'
                 script {
-                    env.PROD = bat(
+                    env.PROD_TEST_STATUS = bat(
                         script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test --config=playwright.config.prod.ts"',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
