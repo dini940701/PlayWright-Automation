@@ -62,7 +62,7 @@ pipeline {
                 echo '============================================'
                 echo '📁 Creating ESLint report directory...'
                 echo '============================================'
-                bat '"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p eslint-report"'
+                bat '"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir eslint-report"'
 
                 echo '============================================'
                 echo '🔍 Running ESLint...'
@@ -130,7 +130,7 @@ pipeline {
                 echo '============================================'
                 echo '🏷️ Adding Allure environment info...'
                 echo '============================================'
-                bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results && \
+                bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir allure-results && \
                     echo 'Environment=DEV' > allure-results/environment.properties && \
                     echo 'Browser=Google Chrome' >> allure-results/environment.properties && \
                     echo 'Config=playwright.config.dev.ts' >> allure-results/environment.properties"'''
@@ -138,7 +138,7 @@ pipeline {
             post {
                 always {
 					// Copy and generate DEV Allure Report
-                    bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results-dev && \
+                    bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir allure-results-dev && \
                         cp -r allure-results/* allure-results-dev/ 2>/dev/null || true && \
                         npx allure generate allure-results-dev --clean -o allure-report-dev || true"'''
 						
@@ -202,7 +202,7 @@ pipeline {
                 echo '============================================'
                 echo '🏷️ Adding Allure environment info...'
                 echo '============================================'
-                bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results && \
+                bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir allure-results && \
                     echo 'Environment=QA' > allure-results/environment.properties && \
                     echo 'Browser=Google Chrome' >> allure-results/environment.properties && \
                     echo 'Config=playwright.config.qa.ts' >> allure-results/environment.properties"'''
@@ -210,7 +210,7 @@ pipeline {
             post {
                 always {
 					// Copy and generate QA Allure Report
-                    bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results-qa && \
+                    bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir allure-results-qa && \
                         cp -r allure-results/* allure-results-qa/ 2>/dev/null || true && \
                         npx allure generate allure-results-qa --clean -o allure-report-qa || true"'''
 						
@@ -274,7 +274,7 @@ pipeline {
                 echo '============================================'
                 echo '🏷️ Adding Allure environment info...'
                 echo '============================================'
-                bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results && \
+                bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir allure-results && \
                     echo 'Environment=STAGE' > allure-results/environment.properties && \
                     echo 'Browser=Google Chrome' >> allure-results/environment.properties && \
                     echo 'Config=playwright.config.stage.ts' >> allure-results/environment.properties"'''
@@ -282,7 +282,7 @@ pipeline {
             post {
                 always {
 					// Copy and generate STAGE Allure Report
-                    bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results-stage && \
+                    bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir allure-results-stage && \
                         cp -r allure-results/* allure-results-stage/ 2>/dev/null || true && \
                         npx allure generate allure-results-stage --clean -o allure-report-stage || true"'''
 						
@@ -346,7 +346,7 @@ pipeline {
                 echo '============================================'
                 echo '🏷️ Adding Allure environment info...'
                 echo '============================================'
-                bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results && \
+                bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir allure-results && \
                     echo 'Environment=PROD' > allure-results/environment.properties && \
                     echo 'Browser=Google Chrome' >> allure-results/environment.properties && \
                     echo 'Config=playwright.config.prod.ts' >> allure-results/environment.properties"'''
@@ -354,7 +354,7 @@ pipeline {
             post {
                 always {
 					// Copy and generate PROD Allure Report
-                    bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results-prod && \
+                    bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir allure-results-prod && \
                         cp -r allure-results/* allure-results-prod/ 2>/dev/null || true && \
                         npx allure generate allure-results-prod --clean -o allure-report-prod || true"'''
 						
@@ -406,7 +406,7 @@ pipeline {
 
                 bat '''
 					# Create combined results directory
-					"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results-combined && \
+					"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir allure-results-combined && \
 					
 					# Copy all environment results
                     cp -r allure-results-dev/* allure-results-combined/ 2>/dev/null || true && \
