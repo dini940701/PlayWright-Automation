@@ -190,7 +190,7 @@ pipeline {
                 bat '"C:\\Program Files\\Git\\bin\\bash.exe" -c "rm -rf allure-results playwright-report playwright-html-report test-results"'
 
                 echo '============================================'
-                echo '🧪 Running QA tests...''
+                echo '🧪 Running QA tests...'
                 echo '============================================'
                 script {
                     env.QA_TEST_STATUS = bat(
@@ -262,7 +262,7 @@ pipeline {
                 bat '"C:\\Program Files\\Git\\bin\\bash.exe" -c "rm -rf allure-results playwright-report playwright-html-report test-results"'
 
                 echo '============================================'
-                echo '🧪 Running STAGE tests...''
+                echo '🧪 Running STAGE tests...'
                 echo '============================================'
                 script {
                     env.STAGE_TEST_STATUS = bat(
@@ -334,7 +334,7 @@ pipeline {
                 bat '"C:\\Program Files\\Git\\bin\\bash.exe" -c "rm -rf allure-results playwright-report playwright-html-report test-results"'
 
                 echo '============================================'
-                echo '🧪 Running PROD tests...''
+                echo '🧪 Running PROD tests...'
                 echo '============================================'
                 script {
                     env.PROD = bat(
