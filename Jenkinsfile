@@ -381,7 +381,7 @@ pipeline {
         }
     }
 	
-	// ============================================
+// ============================================
 // Post-Build Actions (Notifications)
 // ============================================
 post {
@@ -419,6 +419,17 @@ post {
             env.QA_EMOJI = qaEmoji
             env.STAGE_EMOJI = stageEmoji
             env.PROD_EMOJI = prodEmoji
+
+            echo """
+============================================
+📊 Test Results by Environment:
+============================================
+${devEmoji} DEV:   ${devStatus}
+${qaEmoji} QA:    ${qaStatus}
+${stageEmoji} STAGE: ${stageStatus}
+${prodEmoji} PROD:  ${prodStatus}
+============================================
+"""
         }
     }
 
@@ -443,14 +454,13 @@ ${env.STAGE_EMOJI} STAGE: ${env.STAGE_TEST_STATUS}
 ${env.PROD_EMOJI} PROD: ${env.PROD_TEST_STATUS}
 
 📊 <${env.BUILD_URL}allure|Combined Allure Report>
-🔗 <${env.BUILD_URL}|View Build>
-📋 <${env.BUILD_URL}console|Console Log>"""
+🔗 <${env.BUILD_URL}|View Build>"""
                 )
             } catch (Exception e) {
                 echo "Slack notification failed: ${e.message}"
             }
 
-            // Email notification for PASSED
+            // Email notification
             try {
                 emailext(
                     subject: "✅ Playwright Tests Passed - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
@@ -474,15 +484,16 @@ body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
 .btn-purple { background: #9b59b6; }
 .btn-red { background: #e74c3c; }
 .section-title { background: #34495e; color: white; padding: 10px; margin-top: 20px; border-radius: 5px; }
-.report-grid { display: table; width: 100%; margin: 10px 0; }
-.report-row { display: table-row; }
-.report-cell { display: table-cell; padding: 5px; }
 </style>
 </head>
 <body>
 <div class="container">
-<div class="header"><h1>✅ Playwright Pipeline Results</h1><h2>All Tests Passed</h2></div>
+<div class="header">
+<h1>✅ Playwright Pipeline Results</h1>
+<h2>All Tests Passed</h2>
+</div>
 <div class="content">
+
 <h3>📋 Pipeline Information</h3>
 <table class="status-table">
 <tr><th>Job</th><td>${env.JOB_NAME}</td></tr>
@@ -492,26 +503,21 @@ body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
 
 <h3>🧪 Test Results by Environment</h3>
 <table class="status-table">
-<tr><th>Environment</th><th>Status</th></tr>
-<tr><td>DEV</td><td class="success">${env.DEV_TEST_STATUS}</td></tr>
-<tr><td>QA</td><td class="success">${env.QA_TEST_STATUS}</td></tr>
-<tr><td>STAGE</td><td class="success">${env.STAGE_TEST_STATUS}</td></tr>
-<tr><td>PROD</td><td class="success">${env.PROD_TEST_STATUS}</td></tr>
+<tr><th>Environment</th><th>Status</th><th>Allure</th><th>Playwright</th><th>HTML</th></tr>
+<tr><td>DEV</td><td class="success">${env.DEV_TEST_STATUS}</td><td><a href="${env.BUILD_URL}allure-report-dev" class="btn btn-green">Allure</a></td><td><a href="${env.BUILD_URL}playwright-report" class="btn">Playwright</a></td><td><a href="${env.BUILD_URL}playwright-html-report" class="btn btn-orange">HTML</a></td></tr>
+<tr><td>QA</td><td class="success">${env.QA_TEST_STATUS}</td><td><a href="${env.BUILD_URL}allure-report-qa" class="btn btn-green">Allure</a></td><td><a href="${env.BUILD_URL}playwright-report" class="btn">Playwright</a></td><td><a href="${env.BUILD_URL}playwright-html-report" class="btn btn-orange">HTML</a></td></tr>
+<tr><td>STAGE</td><td class="success">${env.STAGE_TEST_STATUS}</td><td><a href="${env.BUILD_URL}allure-report-stage" class="btn btn-green">Allure</a></td><td><a href="${env.BUILD_URL}playwright-report" class="btn">Playwright</a></td><td><a href="${env.BUILD_URL}playwright-html-report" class="btn btn-orange">HTML</a></td></tr>
+<tr><td>PROD</td><td class="success">${env.PROD_TEST_STATUS}</td><td><a href="${env.BUILD_URL}allure-report-prod" class="btn btn-green">Allure</a></td><td><a href="${env.BUILD_URL}playwright-report" class="btn">Playwright</a></td><td><a href="${env.BUILD_URL}playwright-html-report" class="btn btn-orange">HTML</a></td></tr>
 </table>
 
 <div class="section-title">📁 All Reports</div>
-<div class="report-grid">
-<div class="report-row">
-<div class="report-cell"><a class="btn btn-green" href="${env.BUILD_URL}allure-report-dev">DEV Allure</a></div>
-<div class="report-cell"><a class="btn btn-green" href="${env.BUILD_URL}allure-report-qa">QA Allure</a></div>
-<div class="report-cell"><a class="btn btn-green" href="${env.BUILD_URL}allure-report-stage">STAGE Allure</a></div>
-<div class="report-cell"><a class="btn btn-green" href="${env.BUILD_URL}allure-report-prod">PROD Allure</a></div>
-</div>
-<div class="report-row">
-<div class="report-cell"><a class="btn" href="${env.BUILD_URL}playwright-report">Playwright Report</a></div>
-<div class="report-cell"><a class="btn btn-orange" href="${env.BUILD_URL}playwright-html-report">Custom HTML Report</a></div>
-</div>
-</div>
+<table class="status-table">
+<tr><th>Report Type</th><th>DEV</th><th>QA</th><th>STAGE</th><th>PROD</th></tr>
+<tr><td><strong>Allure</strong></td><td><a href="${env.BUILD_URL}allure-report-dev">View</a></td><td><a href="${env.BUILD_URL}allure-report-qa">View</a></td><td><a href="${env.BUILD_URL}allure-report-stage">View</a></td><td><a href="${env.BUILD_URL}allure-report-prod">View</a></td></tr>
+<tr><td><strong>Playwright</strong></td><td><a href="${env.BUILD_URL}playwright-report">View</a></td><td><a href="${env.BUILD_URL}playwright-report">View</a></td><td><a href="${env.BUILD_URL}playwright-report">View</a></td><td><a href="${env.BUILD_URL}playwright-report">View</a></td></tr>
+<tr><td><strong>Custom HTML</strong></td><td><a href="${env.BUILD_URL}playwright-html-report">View</a></td><td><a href="${env.BUILD_URL}playwright-html-report">View</a></td><td><a href="${env.BUILD_URL}playwright-html-report">View</a></td><td><a href="${env.BUILD_URL}playwright-html-report">View</a></td></tr>
+</table>
+
 </div>
 </div>
 </body>
@@ -531,7 +537,6 @@ body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
         echo '❌ Pipeline failed!'
 
         script {
-            // Slack notification
             try {
                 slackSend(
                     color: 'danger',
@@ -554,7 +559,6 @@ ${env.PROD_EMOJI} PROD: ${env.PROD_TEST_STATUS}
                 echo "Slack notification failed: ${e.message}"
             }
 
-            // Email notification for FAILED (similar HTML as passed but red)
             try {
                 emailext(
                     subject: "❌ Playwright Tests Failed - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
@@ -578,15 +582,16 @@ body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
 .btn-purple { background: #9b59b6; }
 .btn-red { background: #e74c3c; }
 .section-title { background: #34495e; color: white; padding: 10px; margin-top: 20px; border-radius: 5px; }
-.report-grid { display: table; width: 100%; margin: 10px 0; }
-.report-row { display: table-row; }
-.report-cell { display: table-cell; padding: 5px; }
 </style>
 </head>
 <body>
 <div class="container">
-<div class="header"><h1>❌ Playwright Pipeline Results</h1><h2>Tests Failed</h2></div>
+<div class="header">
+<h1>❌ Playwright Pipeline Results</h1>
+<h2>Tests Failed</h2>
+</div>
 <div class="content">
+
 <h3>📋 Pipeline Information</h3>
 <table class="status-table">
 <tr><th>Job</th><td>${env.JOB_NAME}</td></tr>
@@ -597,25 +602,20 @@ body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
 <h3>🧪 Test Results by Environment</h3>
 <table class="status-table">
 <tr><th>Environment</th><th>Status</th></tr>
-<tr><td>DEV</td><td class="failure">${env.DEV_TEST_STATUS}</td></tr>
-<tr><td>QA</td><td class="failure">${env.QA_TEST_STATUS}</td></tr>
-<tr><td>STAGE</td><td class="failure">${env.STAGE_TEST_STATUS}</td></tr>
-<tr><td>PROD</td><td class="failure">${env.PROD_TEST_STATUS}</td></tr>
+<tr><td>DEV</td><td class="${env.DEV_TEST_STATUS == 'success' ? 'success' : 'failure'}">${env.DEV_TEST_STATUS ?: 'not run'}</td></tr>
+<tr><td>QA</td><td class="${env.QA_TEST_STATUS == 'success' ? 'success' : 'failure'}">${env.QA_TEST_STATUS ?: 'not run'}</td></tr>
+<tr><td>STAGE</td><td class="${env.STAGE_TEST_STATUS == 'success' ? 'success' : 'failure'}">${env.STAGE_TEST_STATUS ?: 'not run'}</td></tr>
+<tr><td>PROD</td><td class="${env.PROD_TEST_STATUS == 'success' ? 'success' : 'failure'}">${env.PROD_TEST_STATUS ?: 'not run'}</td></tr>
 </table>
 
 <div class="section-title">📁 All Reports</div>
-<div class="report-grid">
-<div class="report-row">
-<div class="report-cell"><a class="btn btn-red" href="${env.BUILD_URL}allure-report-dev">DEV Allure</a></div>
-<div class="report-cell"><a class="btn btn-red" href="${env.BUILD_URL}allure-report-qa">QA Allure</a></div>
-<div class="report-cell"><a class="btn btn-red" href="${env.BUILD_URL}allure-report-stage">STAGE Allure</a></div>
-<div class="report-cell"><a class="btn btn-red" href="${env.BUILD_URL}allure-report-prod">PROD Allure</a></div>
-</div>
-<div class="report-row">
-<div class="report-cell"><a class="btn" href="${env.BUILD_URL}playwright-report">Playwright Report</a></div>
-<div class="report-cell"><a class="btn btn-orange" href="${env.BUILD_URL}playwright-html-report">Custom HTML Report</a></div>
-</div>
-</div>
+<table class="status-table">
+<tr><th>Report Type</th><th>DEV</th><th>QA</th><th>STAGE</th><th>PROD</th></tr>
+<tr><td><strong>Allure</strong></td><td><a href="${env.BUILD_URL}allure-report-dev">View</a></td><td><a href="${env.BUILD_URL}allure-report-qa">View</a></td><td><a href="${env.BUILD_URL}allure-report-stage">View</a></td><td><a href="${env.BUILD_URL}allure-report-prod">View</a></td></tr>
+<tr><td><strong>Playwright</strong></td><td><a href="${env.BUILD_URL}playwright-report">View</a></td><td><a href="${env.BUILD_URL}playwright-report">View</a></td><td><a href="${env.BUILD_URL}playwright-report">View</a></td><td><a href="${env.BUILD_URL}playwright-report">View</a></td></tr>
+<tr><td><strong>Custom HTML</strong></td><td><a href="${env.BUILD_URL}playwright-html-report">View</a></td><td><a href="${env.BUILD_URL}playwright-html-report">View</a></td><td><a href="${env.BUILD_URL}playwright-html-report">View</a></td><td><a href="${env.BUILD_URL}playwright-html-report">View</a></td></tr>
+</table>
+
 </div>
 </div>
 </body>
@@ -635,7 +635,6 @@ body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
         echo '⚠️ Pipeline completed with warnings!'
 
         script {
-            // Slack notification
             try {
                 slackSend(
                     color: 'warning',
@@ -645,92 +644,11 @@ body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
 *Branch:* ${env.GIT_BRANCH ?: 'N/A'}
 *Build:* #${env.BUILD_NUMBER}
 
-*Test Results:*
-${env.DEV_EMOJI} DEV: ${env.DEV_TEST_STATUS}
-${env.QA_EMOJI} QA: ${env.QA_TEST_STATUS}
-${env.STAGE_EMOJI} STAGE: ${env.STAGE_TEST_STATUS}
-${env.PROD_EMOJI} PROD: ${env.PROD_TEST_STATUS}
-
 📊 <${env.BUILD_URL}allure|View Allure Report>
 🔗 <${env.BUILD_URL}|View Build>"""
                 )
             } catch (Exception e) {
                 echo "Slack notification failed: ${e.message}"
-            }
-
-            // Email notification for UNSTABLE
-            try {
-                emailext(
-                    subject: "⚠️ Playwright Tests Unstable - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    body: """<!DOCTYPE html>
-<html>
-<head>
-<style>
-body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-.container { max-width: 700px; margin: 0 auto; padding: 20px; }
-.header { background: #f39c12; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
-.content { background: #f9f9f9; padding: 20px; border-radius: 0 0 8px 8px; }
-.status-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-.status-table th, .status-table td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
-.status-table th { background: #ecf0f1; }
-.success { color: #27ae60; font-weight: bold; }
-.failure { color: #e74c3c; font-weight: bold; }
-.warning { color: #f39c12; font-weight: bold; }
-.btn { display: inline-block; padding: 8px 16px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; margin: 3px; font-size: 12px; }
-.btn-green { background: #27ae60; }
-.btn-orange { background: #f39c12; }
-.btn-purple { background: #9b59b6; }
-.btn-red { background: #e74c3c; }
-.section-title { background: #34495e; color: white; padding: 10px; margin-top: 20px; border-radius: 5px; }
-.report-grid { display: table; width: 100%; margin: 10px 0; }
-.report-row { display: table-row; }
-.report-cell { display: table-cell; padding: 5px; }
-</style>
-</head>
-<body>
-<div class="container">
-<div class="header"><h1>⚠️ Playwright Pipeline Results</h1><h2>Tests Unstable</h2></div>
-<div class="content">
-<h3>📋 Pipeline Information</h3>
-<table class="status-table">
-<tr><th>Job</th><td>${env.JOB_NAME}</td></tr>
-<tr><th>Build</th><td>#${env.BUILD_NUMBER}</td></tr>
-<tr><th>Branch</th><td>${env.GIT_BRANCH ?: 'N/A'}</td></tr>
-</table>
-
-<h3>🧪 Test Results by Environment</h3>
-<table class="status-table">
-<tr><th>Environment</th><th>Status</th></tr>
-<tr><td>DEV</td><td class="warning">${env.DEV_TEST_STATUS}</td></tr>
-<tr><td>QA</td><td class="warning">${env.QA_TEST_STATUS}</td></tr>
-<tr><td>STAGE</td><td class="warning">${env.STAGE_TEST_STATUS}</td></tr>
-<tr><td>PROD</td><td class="warning">${env.PROD_TEST_STATUS}</td></tr>
-</table>
-
-<div class="section-title">📁 All Reports</div>
-<div class="report-grid">
-<div class="report-row">
-<div class="report-cell"><a class="btn btn-orange" href="${env.BUILD_URL}allure-report-dev">DEV Allure</a></div>
-<div class="report-cell"><a class="btn btn-orange" href="${env.BUILD_URL}allure-report-qa">QA Allure</a></div>
-<div class="report-cell"><a class="btn btn-orange" href="${env.BUILD_URL}allure-report-stage">STAGE Allure</a></div>
-<div class="report-cell"><a class="btn btn-orange" href="${env.BUILD_URL}allure-report-prod">PROD Allure</a></div>
-</div>
-<div class="report-row">
-<div class="report-cell"><a class="btn" href="${env.BUILD_URL}playwright-report">Playwright Report</a></div>
-<div class="report-cell"><a class="btn btn-purple" href="${env.BUILD_URL}playwright-html-report">Custom HTML Report</a></div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>""",
-                    mimeType: 'text/html',
-                    to: env.EMAIL_RECIPIENTS,
-                    from: 'CI Notifications <mail@naveenautomationlabs.com>',
-                    replyTo: 'mail@naveenautomationlabs.com'
-                )
-            } catch (Exception e) {
-                echo "Email notification failed: ${e.message}"
             }
         }
     }
