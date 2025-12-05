@@ -211,7 +211,7 @@ pipeline {
                 always {
 					// Copy and generate QA Allure Report
                     bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results-qa && \
-                        cp -r allure-results/* allure-results-qa/ 2>/qa/null || true && \
+                        cp -r allure-results/* allure-results-qa/ 2>/dev/null || true && \
                         npx allure generate allure-results-qa --clean -o allure-report-qa || true"'''
 						
 					// Publish QA Allure HTML Report
@@ -283,7 +283,7 @@ pipeline {
                 always {
 					// Copy and generate STAGE Allure Report
                     bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results-stage && \
-                        cp -r allure-results/* allure-results-stage/ 2>/stage/null || true && \
+                        cp -r allure-results/* allure-results-stage/ 2>/dev/null || true && \
                         npx allure generate allure-results-stage --clean -o allure-report-stage || true"'''
 						
 					// Publish STAGE Allure HTML Report
@@ -355,7 +355,7 @@ pipeline {
                 always {
 					// Copy and generate PROD Allure Report
                     bat '''"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results-prod && \
-                        cp -r allure-results/* allure-results-prod/ 2>/prod/null || true && \
+                        cp -r allure-results/* allure-results-prod/ 2>/dev/null || true && \
                         npx allure generate allure-results-prod --clean -o allure-report-prod || true"'''
 						
 					// Publish PROD Allure HTML Report
