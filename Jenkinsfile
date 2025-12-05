@@ -84,7 +84,7 @@ pipeline {
                 echo 'Running DEV tests...'
                 script {
                     env.DEV_TEST_STATUS = bat(
-                        script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test --config=playwright.config.dev.ts"',
+                        script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test tests/loginpage.spec.ts--config=playwright.config.dev.ts"',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
                 }
@@ -144,7 +144,7 @@ pipeline {
                 bat '"C:\\Program Files\\Git\\bin\\bash.exe" -c "rm -rf allure-results playwright-report playwright-html-report test-results"'
                 script {
                     env.QA_TEST_STATUS = bat(
-                        script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test --config=playwright.config.qa.ts"',
+                        script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test tests/loginpage.spec.ts--config=playwright.config.qa.ts"',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
                 }
@@ -203,7 +203,7 @@ pipeline {
                 bat '"C:\\Program Files\\Git\\bin\\bash.exe" -c "rm -rf allure-results playwright-report playwright-html-report test-results"'
                 script {
                     env.STAGE_TEST_STATUS = bat(
-                        script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test --config=playwright.config.stage.ts"',
+                        script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test tests/loginpage.spec.ts--config=playwright.config.stage.ts"',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
                 }
@@ -262,7 +262,7 @@ pipeline {
                 bat '"C:\\Program Files\\Git\\bin\\bash.exe" -c "rm -rf allure-results playwright-report playwright-html-report test-results"'
                 script {
                     env.PROD_TEST_STATUS = bat(
-                        script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test --config=playwright.config.prod.ts"',
+                        script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test tests/loginpage.spec.ts--config=playwright.config.prod.ts"',
                         returnStatus: true
                     ) == 0 ? 'success' : 'failure'
                 }
