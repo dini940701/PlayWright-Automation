@@ -766,5 +766,5 @@ ${env.PROD_EMOJI ?: '❓'} PROD: ${env.PROD_TEST_STATUS ?: 'not run'}
                 echo "Slack notification failed: ${e.message}"
             }
         }
-    }
+}
 }
