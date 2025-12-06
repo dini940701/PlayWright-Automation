@@ -123,7 +123,7 @@
 					echo '============================================'
 					script {
 						env.DEV_TEST_STATUS = bat(
-							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test --config=playwright.config.dev.ts"',
+							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test test/loginPage.spec.ts --config=playwright.config.dev.ts"',
 							returnStatus: true
 						) == 0 ? 'success' : 'failure'
 					}
@@ -132,18 +132,18 @@
 					echo '🏷️ Adding Allure environment info...'
 					echo '============================================'
 					bat '''
-						"C:\\Program Files\\Git\\bin\\bash.exe" -c mkdir -p allure-results
-						echo 'Environment=DEV' > allure-results/environment.properties
-						echo 'Browser=Google Chrome' >> allure-results/environment.properties
-						echo 'Config=playwright.config.dev.ts' >> allure-results/environment.properties
+						"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results && \
+						echo 'Environment=DEV' > allure-results/environment.properties && \
+						echo 'Browser=Google Chrome' >> allure-results/environment.properties && \
+						echo 'Config=playwright.config.dev.ts' >> allure-results/environment.properties"
 					'''
 				}
 				post {
 					always {
 						bat '''
-							"C:\\Program Files\\Git\\bin\\bash.exe" -c mkdir -p allure-results-dev
-							cp -r allure-results/* allure-results-dev/ 2>/dev/null || true
-							npx allure generate allure-results-dev --clean -o allure-report-dev || true
+							"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results-stage && \
+							cp -r allure-results/* allure-results-dev/ 2>/dev/null || true && \
+							npx allure generate allure-results-stage --clean -o allure-report-stage || true"
 						'''
 
 						// Publish DEV Allure HTML Report
@@ -198,7 +198,7 @@
 					echo '============================================'
 					script {
 						env.QA = bat(
-							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test --config=playwright.config.qa.ts"',
+							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test test/loginPage.spec.ts --config=playwright.config.qa.ts"',
 							returnStatus: true
 						) == 0 ? 'success' : 'failure'
 					}
@@ -207,18 +207,18 @@
 					echo '🏷️ Adding Allure environment info...'
 					echo '============================================'
 					bat '''
-						"C:\\Program Files\\Git\\bin\\bash.exe" -c mkdir -p allure-results
-						echo 'Environment=QA' > allure-results/environment.properties
-						echo 'Browser=Google Chrome' >> allure-results/environment.properties
-						echo 'Config=playwright.config.qa.ts' >> allure-results/environment.properties
+						"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results && \
+						echo 'Environment=QA' > allure-results/environment.properties && \
+						echo 'Browser=Google Chrome' >> allure-results/environment.properties && \
+						echo 'Config=playwright.config.qa.ts' >> allure-results/environment.properties"
 					'''
 				}
 				post {
 					always {
 						bat '''
-							"C:\\Program Files\\Git\\bin\\bash.exe" -c mkdir -p allure-results-qa
-							cp -r allure-results/* allure-results-qa/ 2>/dev/null || true
-							npx allure generate allure-results-qa --clean -o allure-report-qa || true
+							"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results-qa && \
+							cp -r allure-results/* allure-results-qa/ 2>/dev/null || true && \
+							npx allure generate allure-results-qa --clean -o allure-report-qa || true"
 						'''
 
 						// Publish QA Allure HTML Report
@@ -273,7 +273,7 @@
 					echo '============================================'
 					script {
 						env.STAGE = bat(
-							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test --config=playwright.config.stage.ts"',
+							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test test/loginPage.spec.ts --config=playwright.config.stage.ts"',
 							returnStatus: true
 						) == 0 ? 'success' : 'failure'
 					}
@@ -282,18 +282,18 @@
 					echo '🏷️ Adding Allure environment info...'
 					echo '============================================'
 					bat '''
-						"C:\\Program Files\\Git\\bin\\bash.exe" -c mkdir -p allure-results
-						echo 'Environment=STAGE' > allure-results/environment.properties
-						echo 'Browser=Google Chrome' >> allure-results/environment.properties
-						echo 'Config=playwright.config.stage.ts' >> allure-results/environment.properties
+						"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results && \
+						echo 'Environment=STAGE' > allure-results/environment.properties && \
+						echo 'Browser=Google Chrome' >> allure-results/environment.properties && \
+						echo 'Config=playwright.config.stage.ts' >> allure-results/environment.properties"
 					'''
 				}
 				post {
 					always {
 						bat '''
-							"C:\\Program Files\\Git\\bin\\bash.exe" -c mkdir -p allure-results-stage
-							cp -r allure-results/* allure-results-stage/ 2>/dev/null || true
-							npx allure generate allure-results-stage --clean -o allure-report-stage || true
+							"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results-stage && \
+							cp -r allure-results/* allure-results-stage/ 2>/dev/null || true && \
+							npx allure generate allure-results-stage --clean -o allure-report-stage || true"
 						'''
 
 						// Publish STAGE Allure HTML Report
@@ -348,7 +348,7 @@
 					echo '============================================'
 					script {
 						env.PROD = bat(
-							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test --config=playwright.config.prod.ts"',
+							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test test/loginPage.spec.ts --config=playwright.config.prod.ts"',
 							returnStatus: true
 						) == 0 ? 'success' : 'failure'
 					}
@@ -357,18 +357,18 @@
 					echo '🏷️ Adding Allure environment info...'
 					echo '============================================'
 					bat '''
-						"C:\\Program Files\\Git\\bin\\bash.exe" -c mkdir -p allure-results
-						echo 'Environment=PROD' > allure-results/environment.properties
-						echo 'Browser=Google Chrome' >> allure-results/environment.properties
-						echo 'Config=playwright.config.prod.ts' >> allure-results/environment.properties
+						"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results && \
+						echo 'Environment=PROD' > allure-results/environment.properties && \
+						echo 'Browser=Google Chrome' >> allure-results/environment.properties && \
+						echo 'Config=playwright.config.prod.ts' >> allure-results/environment.properties"
 					'''
 				}
 				post {
 					always {
 						bat '''
-							"C:\\Program Files\\Git\\bin\\bash.exe" -c mkdir -p allure-results-prod
-							cp -r allure-results/* allure-results-prod/ 2>/dev/null || true
-							npx allure generate allure-results-prod --clean -o allure-report-prod || true
+							"C:\\Program Files\\Git\\bin\\bash.exe" -c "mkdir -p allure-results-prod && \
+							cp -r allure-results/* allure-results-prod/ 2>/dev/null || true && \
+							npx allure generate allure-results-prod --clean -o allure-report-prod || true"
 						'''
 
 						// Publish PROD Allure HTML Report
