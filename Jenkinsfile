@@ -123,7 +123,7 @@
 					echo '============================================'
 					script {
 						env.DEV_TEST_STATUS = bat(
-							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test test/loginPage.spec.ts --config=playwright.config.dev.ts"',
+							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test tests/loginPage.spec.ts --config=playwright.config.dev.ts"',
 							returnStatus: true
 						) == 0 ? 'success' : 'failure'
 					}
@@ -198,7 +198,7 @@
 					echo '============================================'
 					script {
 						env.QA = bat(
-							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test test/loginPage.spec.ts --config=playwright.config.qa.ts"',
+							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test tests/loginPage.spec.ts --config=playwright.config.qa.ts"',
 							returnStatus: true
 						) == 0 ? 'success' : 'failure'
 					}
@@ -273,7 +273,7 @@
 					echo '============================================'
 					script {
 						env.STAGE = bat(
-							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test test/loginPage.spec.ts --config=playwright.config.stage.ts"',
+							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test tests/loginPage.spec.ts --config=playwright.config.stage.ts"',
 							returnStatus: true
 						) == 0 ? 'success' : 'failure'
 					}
@@ -348,7 +348,7 @@
 					echo '============================================'
 					script {
 						env.PROD = bat(
-							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test test/loginPage.spec.ts --config=playwright.config.prod.ts"',
+							script: '"C:\\Program Files\\Git\\bin\\bash.exe" -c "npx playwright test tests/loginPage.spec.ts --config=playwright.config.prod.ts"',
 							returnStatus: true
 						) == 0 ? 'success' : 'failure'
 					}
