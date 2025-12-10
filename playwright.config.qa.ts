@@ -47,7 +47,11 @@ export default defineConfig({
     headless: !!process.env.CI, //false locally but true for CI
     trace: 'on-first-retry',
     screenshot:'on',
-    video:'on',  
+    video:'on',
+    httpCredentials:{
+      username:'storefront',
+      password:'momentsthatmatter1881'
+    }  
   },
   //This is used to save the username and password
   metadata:{

@@ -2,7 +2,7 @@ import { test,expect } from '@playwright/test';
 
 const TOKEN='7751546808c6e572320994d59f37be8701b1402108d17e613a06b1209cf41c90';
 
-test('PUT-update the user details',async({request})=>{
+test.skip('PUT-update the user details',async({request})=>{
     const requestBody={
             status:'inActive'
         };

@@ -49,6 +49,10 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot:'on',
     video:'on',
+    httpCredentials:{
+      username:'storefront',
+      password:'momentsthatmatter1881'
+    }
   },
   //This is used to save the username and password
   metadata:{
