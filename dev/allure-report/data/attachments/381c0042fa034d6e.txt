@@ -1,0 +1,2 @@
+Value filled into an locator('#input-email') is dinesh1@mail.com
+Value filled into an locator('#input-password') is 1@Dinesh
